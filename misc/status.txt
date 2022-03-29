@@ -1,1 +1,4 @@
 Zack Johnson
+
+I am planning on installing Kali via VMWare on my Windows PC.
+Status: Kali is installed and operational in VMWare.
