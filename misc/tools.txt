@@ -1,0 +1,19 @@
+Zack Johnson
+
+1 My IP is 192.168.231.128
+	I used the ifconfig command.
+	Source: https://opensource.com/article/18/5/how-find-ip-address-linux
+2 I used "nslookup carleton.edu" and found 137.22.94.116 which I think is one
+	of the carleton addresses.
+	Source: https://www.java67.com/2012/12/unix-command-to-find-ip-address-from-hostname.html
+3 nslookup used with an ip address seems to also give the host name.
+4 scp <source> <destination> is the right command here to get to mantis the destination is:
+	username@maintis.mathcs.carleton.edu:/aAccounts/username/file/path/
+	Source: https://haydenjames.io/linux-securely-copy-files-using-scp/
+5 nc (netcat) -zv <IP adress> <port range> gives info on what process is listening on a particular port
+6 nc (netcat) without specifying a port range should give info on all the ports (might take a while though)
+7 wget can copy a webpage to a local file. Source: https://linuxize.com/post/wget-command-examples/
+8 curl -I displays the http headers that are returned
+	Source: https://serverfault.com/questions/249483/shell-command-to-see-the-http-headers
+9 lsof -i TCP:<port numbers> -r 1 reported web traffic every second
+	Source: https://unix.stackexchange.com/questions/141600/monitor-outgoing-web-requests-as-they-re-happening
