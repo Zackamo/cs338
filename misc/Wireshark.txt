@@ -24,9 +24,14 @@ Zack Johnson
   5 192.168.231.128 129.6.15.28     TCP     [FIN, ACK]
 
 ======= HTTP ========
-1
-2
-3
+1 I see two TCP handshakes they both have the same set of source and destination
+  IP addresses, but they use two different ports on my computer.
+2 I think it happens in the frame summary:
+  7   192.168.231.128  45.79.89.123  HTTP  395 GET /index.html HTTP/1.1
+3 the picture is retrieved at:
+  11  192.168.231.128  45.79.89.123  HTTP  364 GET /jeff_square_head.jpg HTTP/1.1
+  I am also noticing that this request is followed by several entries that include
+  increasing Seq and Ack numbers. I think these are the packets of the image itself.
 
 ===== QUESTIONS =====
 Is there an easier way to read the packets in human readable text? (there were
