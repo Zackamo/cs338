@@ -1,0 +1,33 @@
+Zack Johnson
+
+====== DAYTIME ======
+1 1 192.168.231.128 129.6.15.28     TCP     [SYN]
+  2 129.6.15.28     192.168.231.128 TCP     [SYN, ACK]
+  3 192.168.231.128 129.6.15.28     TCP     [ACK]
+2 Packet 1 mentions src port 33062. This is the port NC is using as the source
+  of the first packet.
+3 4 129.6.15.28     192.168.231.128 DAYTIME DAYTIME Response
+4 The DAYTIME protocol returned:
+  5 9672 22-04-03       19:42:04       50   0   0  274.7 UTC (NIST)
+    MJD  Date:YY/MM/DD  Time:HH/MM/SS  DST  LS  H  Adv.  Reminder that this is from NIST and in UTC time zone.
+    Where:
+    MJD is Modified Julian Day
+    DST = 50 indicates Daylight Savings Time (00 if not) other numbers countdown to swap.
+    LS = 1 or 2 indicates a leap second will be added or dropped at the end of the month.
+    H indicates health of the server (0 = everything's fine).
+    Adv. advance time in ms, the packet is sent this much time before the listed time.
+    Source: https://tf.nist.gov/general/pdf/1046.pdf
+5 [SYN] refers to a synchronization packet/
+6 [ACK] refers to an acknowledgement of a previous message.
+7 [FIN] is the packet that closes the connection, it requires an [ACK]
+8 My computer initiated the [FIN] (the source is my address):
+  5 192.168.231.128 129.6.15.28     TCP     [FIN, ACK]
+
+======= HTTP ========
+1
+2
+3
+
+===== QUESTIONS =====
+Is there an easier way to read the packets in human readable text? (there were
+times where the interpreter placed a confusing newline)
