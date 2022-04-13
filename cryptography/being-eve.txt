@@ -1,0 +1,45 @@
+Zack Johnson
+
+===== Diffie-Hellman =====
+Known Info:
+g = 11, p = 59
+Alice sent Bob: A = 57
+Bob sent Alice: B = 44
+
+Unknown:
+X, Y (Alice and Bob's secret numbers)
+K the shared secret
+
+Work:
+A = g^X mod P. To find X I brute forced guesses for X in the python interactive shell. I found X = 36.
+Now that I have X, I can calculate S with B^X mod p = K:
+K = 36.
+
+I used a brute force method of trying all integers until I found one that worked.
+This works fine for small numbers but would take a very long time for large integers.
+
+===== RSA =====
+Known Info:
+Bob's public key: (13, 5561)
+
+I used a short python program to brute force the factorization of p and q from n (5561).
+I found p = 67 and q = 83.
+The python program is called being-eve-rsa.py and can be found in this directory.
+From this p and q I can find the lcd(p-1, q-1) = 2706 (online)
+I can then check that gcd(13, 2706) is indeed 1. (https://calculationcalculator.com/gcf-of-13-and-2706)
+So then I just need to find a d that works so I need 13*d mod 2706 = 1.
+For this I again used my python program to brute force d = 1249.
+Finally I used python to decrypt the message. looking at the plain text I decided
+that it looking like ascii encoding so I also had python decode the message as ascii characters.
+this turned out to be right and I got a sensical message. (Why did you have to slip in another Schneier link?)
+
+The message was:
+Hey Bob. It's even worse than we thought! Your pal, Alice. https://www.schneier.com/blog/archives/2022/04/airtags-are-used-for-stalking-far-more-than-previously-reported.html
+
+There are two points where my process would have likely failed with larger integers. First I brute forced factoring
+n in python, in N was very large this would take forever. Second I brute forced finding d.
+While this is an easier process than finding n, it would have still taken quite awhile if the numbers were bigger.
+
+Finally I noticed just by looking at the ciphertext that the number 570 appears a lot. Turns out this corresponds
+to the space character (ascii 32). This occurs because the message is encrypted one char at a time, meaning its
+just a substitution cipher, making it rather unsecure. (I was already guessing that 570 might be spaces).
