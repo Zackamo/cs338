@@ -1,0 +1,163 @@
+Zack Johnson
+
+===== Private Key =====
+
+Expected items:
+- version (0 or 1). 0: two-prime 1: multi (allows the otherPrimeInfos field)
+- modulus (INTEGER). n in our RSA notation.
+- publicExponent (INTEGER). e in our RSA notation.
+- privateExponent (INTEGER). d in RSA notation.
+- prime1 (INTEGER).
+- prime2 (INTEGER). These are p and q
+- exponent1 (INTEGER).
+- exponent2 (INTEGER).
+- coefficient (INTEGER).
+
+Decoding with a web tool: I arbitrarily chose the top decoder
+(Lapo Luchini's ASN.1 decoder) and copied my base64 text into it.
+
+Found in Private Key:
+version: at offset 4 we see 0x02 (DER, primitive, integer) 0x01 (length 1 byte) and 0x00 (Value 0)
+modulus (n): at offset 7 we see 0x02 (DER, primitive, integer) 0x82 01 81 (length):
+  0x82 => 1000 0010 indicating a definite, long length with 2 bytes for the length.
+  Those two bytes are 0x01 81 => 0x1 1000 0001 = 385 bytes long (the decoder says 3072 bits) so
+  there is some padding to fit in 358 bytes = 3080 bits. Finally there is 358 bytes of value:
+	0x00ab57419949ecdcf5f2328f0372ad3aef490f6a6853039b60dde4c2cde08175c3b9a9e663d338f8507a16faa0ab
+	293b2462ee7db49640cbf9def6c3460e5a3a8241978d71521ccb7f9a322a71be2e8158e740eecd36845c42e0c7fbce
+	6dda41029eec26b41b1fdb7cce9c6a306770410117a90dd2c52ab1c3a9f2dd6365e8dd974efc132fee6ecdb826d617
+	de95940e7e0e3455f3f9dc55d0747617c6c5291219fd322497128aacb9c169254a144e292ef09392e226e1aed46536
+	5b4ae9662925f6bc28f7fa8b0c95c7b4e51037fac390081295f797e96d0645fb75e1a26d38e389964bd92ef8a79825
+	bf54451146d7df6d5a089c23380d008f1f2ff530152a1f03fd2529a30aba173f3b65129d28eeabc0efa4b2546befca
+	60954c2065ba1162677041cfb1be9d1368ea5ddb022be82cc10c3fd02d37f32cb33d30422f78608f1a5075cb35a285
+	58feab868257c530583214da2c5ba685c57c8535bcb656dd7c0fc71fb506e2113356e4a9a739db2632e1a615bdc2c6
+	abdfd5697534a4e83987
+publicExponent (e): at offset 396 we see another integer (0x02) of size 3 (0x03) it has the value: 65537
+privateExponent (d): at offset 401 we see integer (0x02) size 0x01 80 => 384 bytes long. Its value is:
+	0x0b62c1fe30b667bc843aaddc39cb9f25f581ebbd40fef55d4b817f1c7535c5209b7ed9cb7a66c7c1794b7b9e1fa19
+	ec77d3781ecf52b1b22e0991f42d183576dfe73d6b7581087c953f2cf753d8113a157c4add9bf2cae80d73512db95db
+	3204bd90cdc59c23d2cf095fc582afecfab4dae0a605828aa2c370d0adbb8433243e80c629743ef0e804bbb7f0601f2
+	a768813e3906ea504ea42eeea460c345fd54f1acf313544cb284d33b80bfd4f3a1e6c7b1a236199d9d7674fce7be48f
+	7bf571ef8b90a8206d50ad1dc8a86acf42c94f742208c8e21975ebf273ae2c48625efd4d91e5643bb5b5a5fe0c70cb9
+	5956ee00ce2d8250cebd08581f91bd3559db65edc3b76cbb902a29b317c0e982afaf1d881b1ab04cfd8d39310aa7bee
+	235f222fecd5095094f62327749d9e8f95de270584832f4553ef3a1aaa2b8e5d0e32caa6beec1904077cdf058855a74
+	f24213b37c25099355b85a4d97c44d7504af57edb42e8f98e171c5afe85c4a3e9229cccb518cb019c08a0f4e63da891
+	de5cd69b69
+prime1 (p): at offset 789 we have the first prime p. It has size 0xc1 = 193 bytes. Its value is:
+	0x00d542fd844bb4e4aa0f9a48abb2843637cfc35107a2b3ca1be6836465885931d4436e9e1aff6829c2f7c16efa73b67
+	f647be456b6873b6ce662d97c92e15c38e26a96b18b812d9fc4c68ca57e60b2b8e557d0bd80546e288bc9eff7391307f0
+	4c89ab2fd256115b4aa2afddf8d248bb962a85c29ce14fb7c74f6db8906c0ebef630edfd42aedbe30c102c3723575ed61
+	1cdc250f3ad9457320ebd2be8992bfe3501ed2dd74a770960aeac0af659c5932fba7bb74173dbefee0942b363bfd6d61d
+prime2 (q): at offset 985 we have the second prime q. It also has size 0xc1 = 193 bytes. Its value is:
+	0x00cdad97a17851981cb796928c6527fc04d6efb16596e6bf93e193e50c0758c81f49f6d50fa730f2b5fbd30d523c28c
+	d40f03b434602741af095933f51ffa8128873e0a8ec442c031cea2d89e59dead884c6ed99de10d313ba40f779aa49dcc5
+	d9c9f6526127c9b37e9a8c5fb79a5bdcb8b5a39971e36ac96c1334b824b5b9a4cc7d4ab9e47e05e9d0d1dbea0a90384e1
+	b81fc9f8fc0e1aa033a269604a715b89cd50d96746a9fedd9141413636d67075997e7be88dfb33642a66c8064fc862cf3
+exponent1: at offset 1181 we have exponent1. This is d mod (p-1). It is useful for an optimized version
+  of the decoding algorithm. It's an integer (0x02) with length 0xc1 = 193 bytes. Its value is:
+  0x00be071459771038152514081f1e51daf1fe6a7ee07be51279abfc7650569f8bdc253e0319f16dc2909d2dba92e6dab
+  e472e7237a62b78134072e272b37aa62f75e91e6013fbc648b0116fafe39d8c835eb0d22a9998221475033a95234146f8
+  a36aa4a4571b241a21b63759666712323ccba526d59d9ae81a6c374b973d0222bcc2babdca567f4ea028250df8aad8b18
+  d69b7f5643cce8aa7eb243b64e65fa2035fb514fcdab8991d926770d93502ed7541090e30ff6902312c05484de0da312d
+exponent2: at offset 1377 we have the other exponent: d mod (q-1). It's also an integer of length
+  0xc1 = 193 bytes. Its value is:
+  0x00b75ae1aa18d0e481f5484e2ccaa0f2927dea0083481b3cfe6042b01621168c911826eb99a0ba8a24a1f26c15bb7bc
+  43ef7ea5cf6b4893cdaecfcef9df203ab41e9cb85cbda9a41cc2d179baf0f30a504f93227d147be63ffce9acfe3772551
+  5bee27a118eb976c6498f23b023aa15a0b70220050ff23db9c7522b266477acfe75c6a997d90bb44cddbc7e8c4b1fcffe
+  495e4d77a17c11506fb781a94db3f09ed0621aed6e996d93a8423c18509aaa76abf78e0eab441d7456387a68e60705cf1
+coefficient:
+  Finally at offset 1573 we have the coefficient which is also used for the optimized algorithm. It
+  is an integer of length 0xc0 = 192 bytes. Its value is:
+  0x5ad421e4d73ed8c5c78204265074b6ba5c74c375782129a281362c9b9cad3f107a15045aa3a7eba24d5d5e01026d9a9
+  0714f81bf49911df62a9e58e7dc2d45a0732a8d3a9a4c6b64fe513ae07de55709c57b67349852fa17f98015bf08f888ce
+  ba18f8e115c9bddbbcb99db2e4f4069cd3e10eba694379190cb05b564f74908c45eb2ebea351250cbe9510002ab7a8c9d
+  928c847f43fd370674cc5720833b250a16e01d7b2198928c2a8ca003e378813fab0b6eab0e539fcd09e683040d6b2bb
+
+===== Public  Key =====
+
+Expected Items:
+- modulus (INTEGER): n in RSA
+- publicExponent (INTEGER): e in RSA
+
+My public key originally came in ssh format rather than Asn.1. I had to convert it
+with "ssh-keygen -f id_rsa_homework.pub -e -m pem". After that I was able to use the same tools as
+above to decode the base64.
+
+Found in Public Key:
+modulus (n): at offset 4 we have an integer (0x02) with length 0x01 81 = 385 bytes. Its value is:
+  0x00ab57419949ecdcf5f2328f0372ad3aef490f6a6853039b60dde4c2cde08175c3b9a9e663d338f8507a16faa0ab293
+  b2462ee7db49640cbf9def6c3460e5a3a8241978d71521ccb7f9a322a71be2e8158e740eecd36845c42e0c7fbce6dda41
+  029eec26b41b1fdb7cce9c6a306770410117a90dd2c52ab1c3a9f2dd6365e8dd974efc132fee6ecdb826d617de95940e7
+  e0e3455f3f9dc55d0747617c6c5291219fd322497128aacb9c169254a144e292ef09392e226e1aed465365b4ae9662925
+  f6bc28f7fa8b0c95c7b4e51037fac390081295f797e96d0645fb75e1a26d38e389964bd92ef8a79825bf54451146d7df6
+  d5a089c23380d008f1f2ff530152a1f03fd2529a30aba173f3b65129d28eeabc0efa4b2546befca60954c2065ba116267
+  7041cfb1be9d1368ea5ddb022be82cc10c3fd02d37f32cb33d30422f78608f1a5075cb35a28558feab868257c53058321
+  4da2c5ba685c57c8535bcb656dd7c0fc71fb506e2113356e4a9a739db2632e1a615bdc2c6abdfd5697534a4e83987
+publicExponent (e): at offset 393 we find an integer (0x02) of length 3 (0x03) with the value
+  0x010001 = 65537.
+
+===== Sanity Check =====
+
+First we can easily see that the private and public keys agree on n and e: both have an 'e' of 65537
+and both hex representations of n start and end with 0x00ab574 ... 83987.
+
+Further sanity checking occurs in the python program sanity_check.py in this directory.
+I checked that p * q does indeed equal n and that e * d mod lam(n) does equal 1.
+
+===== The Keys Themselves =====
+
+ ----- BEGIN RSA PRIVATE KEY -----
+MIIG5AIBAAKCAYEAq1dBmUns3PXyMo8Dcq0670kPamhTA5tg3eTCzeCBdcO5qeZj
+0zj4UHoW+qCrKTskYu59tJZAy/ne9sNGDlo6gkGXjXFSHMt/mjIqcb4ugVjnQO7N
+NoRcQuDH+85t2kECnuwmtBsf23zOnGowZ3BBARepDdLFKrHDqfLdY2Xo3ZdO/BMv
+7m7NuCbWF96VlA5+DjRV8/ncVdB0dhfGxSkSGf0yJJcSiqy5wWklShROKS7wk5Li
+JuGu1GU2W0rpZikl9rwo9/qLDJXHtOUQN/rDkAgSlfeX6W0GRft14aJtOOOJlkvZ
+LvinmCW/VEURRtffbVoInCM4DQCPHy/1MBUqHwP9JSmjCroXPztlEp0o7qvA76Sy
+VGvvymCVTCBluhFiZ3BBz7G+nRNo6l3bAivoLMEMP9AtN/Mssz0wQi94YI8aUHXL
+NaKFWP6rhoJXxTBYMhTaLFumhcV8hTW8tlbdfA/HH7UG4hEzVuSppznbJjLhphW9
+wsar39VpdTSk6DmHAgMBAAECggGAC2LB/jC2Z7yEOq3cOcufJfWB671A/vVdS4F/
+HHU1xSCbftnLembHwXlLe54foZ7HfTeB7PUrGyLgmR9C0YNXbf5z1rdYEIfJU/LP
+dT2BE6FXxK3ZvyyugNc1EtuV2zIEvZDNxZwj0s8JX8WCr+z6tNrgpgWCiqLDcNCt
+u4QzJD6Axil0PvDoBLu38GAfKnaIE+OQbqUE6kLu6kYMNF/VTxrPMTVEyyhNM7gL
+/U86Hmx7GiNhmdnXZ0/Oe+SPe/Vx74uQqCBtUK0dyKhqz0LJT3QiCMjiGXXr8nOu
+LEhiXv1NkeVkO7W1pf4McMuVlW7gDOLYJQzr0IWB+RvTVZ22Xtw7dsu5AqKbMXwO
+mCr68diBsasEz9jTkxCqe+4jXyIv7NUJUJT2Iyd0nZ6Pld4nBYSDL0VT7zoaqiuO
+XQ4yyqa+7BkEB3zfBYhVp08kITs3wlCZNVuFpNl8RNdQSvV+20Lo+Y4XHFr+hcSj
+6SKczLUYywGcCKD05j2okd5c1ptpAoHBANVC/YRLtOSqD5pIq7KENjfPw1EHorPK
+G+aDZGWIWTHUQ26eGv9oKcL3wW76c7Z/ZHvkVraHO2zmYtl8kuFcOOJqlrGLgS2f
+xMaMpX5gsrjlV9C9gFRuKIvJ7/c5EwfwTImrL9JWEVtKoq/d+NJIu5YqhcKc4U+3
+x09tuJBsDr72MO39Qq7b4wwQLDcjV17WEc3CUPOtlFcyDr0r6Jkr/jUB7S3XSncJ
+YK6sCvZZxZMvunu3QXPb7+4JQrNjv9bWHQKBwQDNrZeheFGYHLeWkoxlJ/wE1u+x
+ZZbmv5Phk+UMB1jIH0n21Q+nMPK1+9MNUjwozUDwO0NGAnQa8JWTP1H/qBKIc+Co
+7EQsAxzqLYnlnerYhMbtmd4Q0xO6QPd5qkncxdnJ9lJhJ8mzfpqMX7eaW9y4taOZ
+ceNqyWwTNLgktbmkzH1KueR+BenQ0dvqCpA4ThuB/J+PwOGqAzomlgSnFbic1Q2W
+dGqf7dkUFBNjbWcHWZfnvojfszZCpmyAZPyGLPMCgcEAvgcUWXcQOBUlFAgfHlHa
+8f5qfuB75RJ5q/x2UFafi9wlPgMZ8W3CkJ0tupLm2r5HLnI3pit4E0By4nKzeqYv
+dekeYBP7xkiwEW+v452Mg16w0iqZmCIUdQM6lSNBRvijaqSkVxskGiG2N1lmZxIy
+PMulJtWdmugabDdLlz0CIrzCur3KVn9OoCglDfiq2LGNabf1ZDzOiqfrJDtk5l+i
+A1+1FPzauJkdkmdw2TUC7XVBCQ4w/2kCMSwFSE3g2jEtAoHBALda4aoY0OSB9UhO
+LMqg8pJ96gCDSBs8/mBCsBYhFoyRGCbrmaC6iiSh8mwVu3vEPvfqXPa0iTza7Pzv
+nfIDq0Hpy4XL2ppBzC0Xm68PMKUE+TIn0Ue+Y//Oms/jdyVRW+4noRjrl2xkmPI7
+AjqhWgtwIgBQ/yPbnHUismZHes/nXGqZfZC7RM3bx+jEsfz/5JXk13oXwRUG+3ga
+lNs/Ce0GIa7W6ZbZOoQjwYUJqqdqv3jg6rRB10Vjh6aOYHBc8QKBwFrUIeTXPtjF
+x4IEJlB0trpcdMN1eCEpooE2LJucrT8QehUEWqOn66JNXV4BAm2akHFPgb9JkR32
+Kp5Y59wtRaBzKo06mkxrZP5ROuB95VcJxXtnNJhS+hf5gBW/CPiIzroY+OEVyb3b
+vLmdsuT0BpzT4Q66aUN5GQywW1ZPdJCMResuvqNRJQy+lRAAKreoydkoyEf0P9Nw
+Z0zFcggzslChbgHXshmJKMKoygA+N4gT+rC26rDlOfzQnmgwQNayuw==
+ ----- END RSA PRIVATE KEY -----
+
+Public Key:
+
+My public key originally came in ssh format rather than asn.1. I had to convert it
+with "ssh-keygen -f id_rsa_homework.pub -e -m pem"
+
+-----BEGIN RSA PUBLIC KEY-----
+MIIBigKCAYEAq1dBmUns3PXyMo8Dcq0670kPamhTA5tg3eTCzeCBdcO5qeZj0zj4
+UHoW+qCrKTskYu59tJZAy/ne9sNGDlo6gkGXjXFSHMt/mjIqcb4ugVjnQO7NNoRc
+QuDH+85t2kECnuwmtBsf23zOnGowZ3BBARepDdLFKrHDqfLdY2Xo3ZdO/BMv7m7N
+uCbWF96VlA5+DjRV8/ncVdB0dhfGxSkSGf0yJJcSiqy5wWklShROKS7wk5LiJuGu
+1GU2W0rpZikl9rwo9/qLDJXHtOUQN/rDkAgSlfeX6W0GRft14aJtOOOJlkvZLvin
+mCW/VEURRtffbVoInCM4DQCPHy/1MBUqHwP9JSmjCroXPztlEp0o7qvA76SyVGvv
+ymCVTCBluhFiZ3BBz7G+nRNo6l3bAivoLMEMP9AtN/Mssz0wQi94YI8aUHXLNaKF
+WP6rhoJXxTBYMhTaLFumhcV8hTW8tlbdfA/HH7UG4hEzVuSppznbJjLhphW9wsar
+39VpdTSk6DmHAgMBAAE=
+-----END RSA PUBLIC KEY-----
