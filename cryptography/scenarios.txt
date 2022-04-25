@@ -1,0 +1,50 @@
+scenarios.txt
+Zack Johnson
+
+===== Communication Scenarios =====
+
+1 Since PITM is assumed to be impossible, then it is safe for Alice and Bob to use 
+Diffie-Hellman to agree on a key K and then use AES with that K to send the message.
+This is secure because Eve cannot detirmine K without the use of a PITM attack.
+
+2 In this scenario, it is important to note that we don't care if the message is 
+readable to Eve, just that it can't be modified. Because of this Alice can hash the
+message H(M) and then encrypt the hash with her secret key E(S_A, H(M)) = C. She then 
+sends the message in plain text to Bob with C appended to the end. Bob recieves M' (which
+may or may not have been tampered with) calculates E(P_A, C) = E(P_A, E(S_A, H(M))) = H(M),
+as well as H(M'). If these two operations have the same result, the message is intact.
+
+3 This basically combines the two previous scenarios. Since we are still assuming that 
+PITM is impossible, Alice and Bob can use DH to find a shared key K. Then Alice should hash 
+the message H(M), encrypt the message ASM(K, M), and encrypt the hash with her private key
+E(S_A, H(M)). She then sends ASM(K, M) || E(S_A, H(M)) to Bob. Eve could decrypt the hash, 
+but that won't give her any information about the message. Bob can decrypt the message 
+M' = ASM(K, C) and the hash E(P_A, E(S_A, H(M))) = H(M), and compute his own hash of the 
+recieved message H(M'). If H(M) = H(M') then he knows both that the message is uncorruped,
+and that the sender must have Alice's secret key. (So by our assumptions they must be Alice).
+
+===== Breaking Security =====
+
+4 Alice lost control of her secret key - This is reasonably likely, but doesn't reflect 
+favorably on Alice, also Mal would also need to be a PITM for this to work.
+
+Mal (or Bob) got lucky and broke either the hash or Alice's secret key encryption - This is 
+highly unlikely, there is a lot of mathematical proofs behind this taking a really long time.
+
+Alice's Public Key is incorrect. - This is reasonably likely, especially in this scenario without
+a Public Key Infrastructure. But this should be relatively easy to verify by looking at other 
+communications with Alice.
+
+5 I am going to define "bob.com" || P_B as TBS. Then Cert_B is TBS || E(S_CA, H(TBS)). 
+In words, the CA hashes the TBS and then encrypts the hash with its secret key to get Sig.
+
+6 Bob and Alice would have to also create a DH key K. Then Alice can challenge Bob with a random
+number R, to which Bob replies with E(S_B, H(K||R)). Alice can verify using Bob's public key 
+and her own hash of K and R. If this checks out, she can be confident thatthe person on the 
+other end has Bob's Secret Key.
+
+7 If Mal can obtain Bob's Secret Key, then a PITM attack works. (Mal does the classic PITM attack
+on the DH process, then uses S_B to pass Alice's Challenge). If Mal can somehow impersonate the CA,
+either by getting its Secret Key or by creating a new corrupt (but trusted) CA. Mal can issue fake 
+certificates that allow her to know "Bob's" Secret Key.
+
