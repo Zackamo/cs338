@@ -1,0 +1,53 @@
+Zack Johnson
+
+=================
+Phase 1
+
+Total Time: 2m 35.891s
+Passwords Cracked: 2805
+Hashes Computed: 267751
+Time per Hash: 0.582ms
+Time per Password: 55.576ms
+Hashes per Password: 95.45
+==================
+Phase 2
+
+Total Time: 250m 14.234s (Just over 4 hours)
+Passwords Cracked: 2
+Hashes Computed: 26,507,349
+Time per Hash: 0.566 ms
+Time per Password: 125m 7.117s
+Hashes per Password: 13,253,674.5
+==================
+Phase 3
+
+Total Time: 9m 37.531s
+Passwords Cracked: 2805
+Hashes Computed: 751,041,555
+Time per Hash: .00768 ms
+Time per Password: 205.89 ms
+Hashes per Password: 267751
+==================
+Analysis
+
+1) Time per hash changed in phase 3 because I only did 1 comparison per hash
+  rather than the 2805 comparisons in phase 1.
+2) Time per password also changed. This one is more expected because there is
+  more to do. In phase two there are many more options to check and in phase 3 you
+  need to hash much more often because you cannot use the same hash for all the
+  users (because of the prepended salt).
+3)Phase 1: 267751 words * 80 bytes per hash entry = 21MB
+  Phase 2: 267751^2 words * 80 bytes per hash = 5.7*10^12 bytes = 5700GB (5 Terabytes)
+  Phase 3: 267751 words * 2^32 possible salts * 80 bytes per hash = 9.1*10^16 = 91,000,000GB
+  assuming we don't know the salt yet.
+4)If a password file is breached then the attacker still would need to do these
+intensive computations before being able to use the stolen passwords.
+- Also, they could not attempt to use the hashes themselves to access other accounts
+owned by the same user (since they would have a different random salt).
+- Hashing the passwords also protects them from the employees of the server who might have
+access to the file as part of their jobs. It wouldn't necessarily prevent them from being 
+malicious but it does protect against leaking or petty (low effort) attacks.
+- Hashing and salting prevents the storeage of two identical passwords. If two people 
+choose the same password the salt still gives it a different hash. This means an attacker
+can't use the equivalence either to log in as the other person or to guess the other password
+even if they figure out one of the hashes.
