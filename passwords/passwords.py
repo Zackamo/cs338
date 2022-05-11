@@ -9,8 +9,8 @@ import binascii
 def main():
     words = [line.strip().lower() for line in open('words.txt')]
     #phase1(words)
-    #phase2(words)
-    phase3(words)
+    phase2(words)
+    #phase3(words)
     
 
 def phase1(words):
@@ -38,7 +38,13 @@ def phase1(words):
 
 def phase2(words):
     output_file = open("cracked2.txt", "a")
-    accounts = [line.strip() for line in open('example_passwords2.txt')]
+    hash_users = {}
+    for line in open('example_passwords2.txt'):
+        account_list = line.split(':')
+        username = account_list[0]
+        password_hash = account_list[1]
+        hash_users[password_hash] = username
+    print("Initialization Finished")
     found = 0
     hashes = 0
     for word1 in words:
@@ -48,13 +54,10 @@ def phase2(words):
             digest = binascii.hexlify(hasher.digest())
             digest_string = digest.decode('utf-8')
             hashes += 1
-            for account in accounts:
-                account_list = account.split(':')
-                username = account_list[0]
-                password_hash = account_list[1]
-                if(password_hash == digest_string):
-                    output_file.write(username + ":" + password + "\n")
-                    found += 1
+            result = hash_users.get(digest_string, "false")
+            if result != "false":
+                output_file.write(result + ":" + password + "\n")
+                found += 1
         print("Found:", found)
     output_file.close()
     print("=====================")
