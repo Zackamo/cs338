@@ -19,6 +19,15 @@ Time per Hash: 0.566 ms
 Time per Password: 125m 7.117s
 Hashes per Password: 13,253,674.5
 ==================
+Phase 2 {now with Dictionaries}
+
+Total Time: 122m 19.391s (Just over 2 hours)
+Passwords Cracked: 313
+Hashes Computed: 8,587,310,072
+Time per Hash: .000854 ms
+Time per Password: 23.44s
+Hashes per Password: 27,435,495.4
+==================
 Phase 3
 
 Total Time: 9m 37.531s
