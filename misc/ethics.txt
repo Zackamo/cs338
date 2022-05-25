@@ -1,0 +1,72 @@
+Zack Johnson
+
+Scenario 2: Dev at Beerz
+
+A. MAIN ETHICAL QUESTIONS
+  The main issue here is to what extent should we use user data. There are several options 
+ranging from not at all (as in 1.0, where location is deleted right after use), to save and
+sell (anonimized) to data brokers. This issue is complicated by the finacial incentives, 
+both on the personal and company level towards more capture and use of data.
+  It might be valuable to separate the ethical questions of using and storing data vs selling
+it to third parties.
+  I think there is also an ethical question around the actions of the CEO and clueless colleague
+and weather or not you and/or the CTO should take action to confront them about there seeming 
+lack of care for these ethical issues.
+
+B. STAKEHOLDER RIGHTS
+  I don't think there are any legal issues with any of the cources of action available (assuming
+we're in the US) as there are already many companies that operate on this sort of survelance 
+capitalism model. However, I would probably argue that people have a moral right to privacy and 
+control of their data, or at least to the knowledge of how they're data is being used.
+
+  The buisness and its owner have the right to pursue their buisness as they see fit within the 
+legal system. 
+
+C. HELPFUL ADDITIONAL INFORMATION
+  I think the options and possiblities are pretty clear. If some sort of compromise was to be 
+pursued I would want more information on what minimum level of information might be sell-able 
+and if there is a way to sufficiently guard or anonimize that data enough to actually protect 
+users.
+
+It would also be nice to understand if it would be possible to build the system in a way that 
+automatically enforces short term ness, (1 week) of the data storage.
+
+D. POSSIBLE ACTIONS
+  Full Profit: Ignore the ethics and build the system the CEO wants. This is probably the easiest
+option in terms of avoiding conflict in the workplace and keeping one's job. It would also allow the 
+full intended functionality of the app. The main consequence would of course be the effect on the 
+users of the system who now are being tracked and having their data sold and my personal guilt 
+building such a system against the god intentions of myself and the CTO.It would also likely cause 
+some tension with the CTO who also belives in the privacy mission.
+
+  Beerz 2.0 as planned: Build the app with data collection and use as well as the tight policy of 
+scrubbing the data each week. This will require some tough conversations with the CEO and could lead 
+to office discord and potentially emplloyment issues. It would allow the full intended functionallity
+and would protect users, but there is always the danger that the policy will be changed or removed 
+in the future. 
+
+  Don't build Beerz 2.0: Don't build the app, give the CEO an ultimatum (preferably with the CTO) on
+your stance on privacy and look to negociate a fully private version. This either leads to the app 
+not being created (which is sad), or you lose your job and it is created by others. In this second 
+case, the privacy issues in the first option are all likely to result, but at least you have less 
+reason to feel guilty. (but you've also lost you job.)
+
+E. ACM CODE OF ETHICS POSITION
+  The code includes a section calling for computer professionals to respect privacy. This is a pretty 
+strong endorcement for the limited data collection options.
+
+  It also emphasized the leaders need to ensure that the public good is at the center of buisness goals.
+This prodives a good argument for approaching/confronting the CEO and discussing the ethics of the 
+project woth the goal of getting all execs on board with the lower data impact solution.
+
+F. RECCOMENDATION
+  I would start by having further discussions with everyone in that meeting. Talk to the CTO, figure 
+out between the two of you what is limited enough, (if short term storage is ok or not, etc.). Then 
+talk to the CEO, bring up the code of ethics and your conserns, describe how the company can operate
+without the additional revenue stream, etc. If you can get the CEO on board, procede with the 2.0 and 
+move on to discussions/trainings with other devs to get them on board/thinking about the ethics.
+  If you fail to get the CEO on board, go to other devs, see if there is general support for the ethical 
+solution and attempt to use that to sway the CEO. 
+  If nothing works, build the system the CEO wants, but attempt as much as possible to protect user data,
+don't collect unneeded data, and/or make clear notifications about the data collection. If these efforts 
+are blocked and you can't make headway with your arguments, look for a new job.
